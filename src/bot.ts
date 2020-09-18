@@ -9,7 +9,7 @@ export class Bot {
         this.config = config;
         this.client = new Client();
 
-        this.commandsManager = new CommandsManager();
+        this.commandsManager = new CommandsManager(this.client);
         this.pluginsManager = new PluginsManager();
 
         this.client.on('ready', () => {
