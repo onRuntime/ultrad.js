@@ -2,8 +2,6 @@
   "name": "ultrad.js",
   "version": "0.0.1",
   "description": "Discord.JS Ultra for making bot easily",
-  "main": "lib/index",
-  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
