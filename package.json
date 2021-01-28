@@ -1,37 +1,24 @@
 {
-  "name": "ultrad.js",
-  "version": "0.0.1",
-  "description": "Discord.JS Ultra for making bot easily",
-  "main": "lib/index",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "test": "jest --config jestconfig.json",
-    "build": "tsc",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm test && npm run lint"
+  "name"       : "@onruntime/ultrad.js",
+  "version"    : "0.0.1",
+  "description": "",
+  "main"       : "lib/src/index.js",
+  "types"      : "lib/typings/index.d.ts",
+  "scripts"    : {
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/3DX900/ultrad.js.git"
+    "url" : "git+https://github.com/3DX900/ultrad.js.git"
   },
-  "author": "3DX900",
-  "license": "ISC",
-  "bugs": {
+  "author" : "3DX900",
+  "license": "GPL-3.0-or-later",
+  "bugs"   : {
     "url": "https://github.com/3DX900/ultrad.js/issues"
   },
-  "homepage": "https://github.com/3DX900/ultrad.js#readme",
-  "dependencies": {
-    "@types/ws": "^7.2.6",
-    "discord.js": "^12.3.1"
-  },
+  "homepage"       : "https://github.com/3DX900/ultrad.js#readme",
   "devDependencies": {
-    "@types/jest": "^26.0.14",
-    "jest": "^26.4.2",
-    "prettier": "^2.1.2",
-    "ts-jest": "^26.3.0",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0"
+    "@types/ws" : "^7.4.0",
+    "discord.js": "^12.5.1"
   }
 }
