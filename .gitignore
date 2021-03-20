@@ -117,3 +117,4 @@ dist
 
 # Package
 lib/
+test/

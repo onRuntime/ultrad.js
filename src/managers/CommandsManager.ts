@@ -3,10 +3,10 @@ import { Collection, Message } from "discord.js";
 import { Command, DiscordBot, ParsedCommand } from "..";
 
 export class CommandsManager {
-    private _commands: Collection<string, Command>;
+    public readonly commands: Collection<string, Command>;
 
     constructor(bot: DiscordBot) {
-        this._commands = new Collection<string, Command>();
+        this.commands = new Collection<string, Command>();
 
         bot.on('message', (message: Message) => {
             if(message.author.bot || !this._canBeParsed(bot.config.prefix, message.content)) return;
@@ -14,8 +14,8 @@ export class CommandsManager {
             const parsed = this.parse(bot.config.prefix, message);
             if(!parsed) return;
 
-            if(!this._commands.has(parsed.command)) return message.reply('this command doesn\'t exists.');
-            const command: any = this._commands.get(parsed.command);
+            if(!this.commands.has(parsed.command)) return message.reply('this command doesn\'t exists.');
+            const command: any = this.commands.get(parsed.command);
 
             if(command.options) {
                 if(command.options.deleteAfter &&
@@ -30,7 +30,7 @@ export class CommandsManager {
             }
             
             try {
-                command.handle(message);
+                command.handle(message, parsed);
             } catch(error) {
                 message.reply(error);
             }
@@ -38,10 +38,10 @@ export class CommandsManager {
     }
 
     register(command: Command): void {
-        this._commands.set(command.name, command);
+        this.commands.set(command.name, command);
 
         if(command.aliases)
-            command.aliases.forEach((alias: string) => this._commands.set(alias, command));
+            command.aliases.forEach((alias: string) => this.commands.set(alias, command));
     }
 
     private parse(prefix: string, message: Message): ParsedCommand | undefined {
@@ -53,10 +53,21 @@ export class CommandsManager {
         const command = remaining.match(/^[^\s]+/i)?.[0];
         if(!command) return;
         remaining = remaining.slice(command.length).trim();
+        
+        const content = remaining;
+
+        const mentionnedMembers = message.mentions.members ? message.mentions.members.array() : [];
+        const mentionnedRoles = message.mentions.roles ? message.mentions.roles.array() : [];
+        const mentionnedChannels = message.mentions.channels ? message.mentions.channels.array() : [];
 
         return {
-            prefix: prefix,
-            command: command
+            prefix,
+            command,
+            content,
+            args: content.split(' '),
+            mentionnedMembers,
+            mentionnedRoles,
+            mentionnedChannels
         }
     }
 

@@ -10,26 +10,25 @@ import {
 } from '.';
 
 export class DiscordBot extends Client {
-
-    private readonly _pluginsManager: PluginsManager;
-    private readonly _commandsManager: CommandsManager;
+    readonly pluginsManager: PluginsManager;
+    readonly commandsManager: CommandsManager;
 
     readonly config: Config
 
     constructor(config: Config = DefaultConfig) {
         super();
 
-        this._pluginsManager = new PluginsManager();
-        this._commandsManager = new CommandsManager(this);
+        this.pluginsManager = new PluginsManager();
+        this.commandsManager = new CommandsManager(this);
         this.config = config;
 
         this.on('ready', () => {
-            this._pluginsManager.getPlugins().forEach((plugin: DiscordPlugin) => this.enablePlugin(plugin));
+            this.pluginsManager.getPlugins().forEach((plugin: DiscordPlugin) => this.enablePlugin(plugin));
         });
     }
 
     registerPlugin(plugin: DiscordPlugin): void {
-        this._pluginsManager.register(plugin);
+        this.pluginsManager.register(plugin);
     }
 
     enablePlugin(plugin: DiscordPlugin): Promise<DiscordPlugin> {
@@ -47,6 +46,6 @@ export class DiscordBot extends Client {
     }
 
     registerCommand(command: Command): void {
-        this._commandsManager.register(command);
+        this.commandsManager.register(command);
     }
 }

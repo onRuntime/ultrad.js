@@ -1,4 +1,5 @@
 import { BitFieldResolvable, Message, PermissionString } from "discord.js";
+import { ParsedCommand } from "./ParsedCommand";
 
 export interface Command {
     readonly name: string;
@@ -9,5 +10,5 @@ export interface Command {
         deleteAfter?: boolean
     }
 
-    handle(message: Message): void;
+    handle(message: Message, parsed: ParsedCommand): void;
 }

@@ -1,0 +1,1 @@
+import PluginsCommand from './PluginsCommand';
